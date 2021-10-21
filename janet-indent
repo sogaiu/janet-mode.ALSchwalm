@@ -233,7 +233,7 @@
                   (string (buffer/push-byte @"" d)))))))
   missing)
 
-# XXX: will there be issues related to pickign out the appropriate "last"
+# XXX: will there be issues related to picking out the appropriate "last"
 #      line?
 (defn main
   [& args]

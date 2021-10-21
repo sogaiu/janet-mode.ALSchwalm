@@ -248,10 +248,10 @@ A region bounded by START and END is sent to a helper program."
                             'move)
     (goto-char (1- (match-end 0)))))
 
-;; XXX
-(defun janet-indent-function (indent-point state)
-  ""
-  (janet--calculate-indent))
+;; XXX: may not need this
+;; (defun janet-indent-function (indent-point state)
+;;   ""
+;;   (janet--calculate-indent))
 
 ;;;###autoload
 (define-derived-mode janet-mode prog-mode "janet"
@@ -259,8 +259,8 @@ A region bounded by START and END is sent to a helper program."
   :syntax-table janet-mode-syntax-table
   (setq-local font-lock-defaults '(janet-highlights))
   (setq-local indent-line-function #'janet-indent-line)
-  ;; XXX
-  (setq-local lisp-indent-function #'janet-indent-function)
+  ;; XXX: may not need this
+  ;(setq-local lisp-indent-function #'janet-indent-function)
   (setq-local comment-start "#")
   (setq-local comment-start-skip "#+ *")
   (setq-local comment-use-syntax t)
