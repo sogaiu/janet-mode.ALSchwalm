@@ -233,8 +233,7 @@
                   (string (buffer/push-byte @"" d)))))))
   missing)
 
-# XXX: will there be issues related to picking out the appropriate "last"
-#      line?
+# XXX: tabs (and other non-space whitespace) are not handled -- problem?
 (defn main
   [& args]
   (def fragment (file/read stdin :all))
@@ -256,12 +255,12 @@
   (def lines
     (string/split "\n" formatted))
   (eprint "number of lines after: " (length lines))
-  # XXX: this might not be quite right in some cases?  not sure
-  (def target-line (first (slice lines -3 -2)))
-  # XXX
+  # XXX: spork/fmt adds an empty line at the end?
+  (array/pop lines)
+  (def target-line (array/pop lines))
   #(spit "/tmp/janet-indent-target-line.txt" target-line)
-  # XXX: not handling tabs - may be spork/fmt doesn't emit them anyway?
-  (def m (peg/match ~(sequence (any " ") (capture (position)))
+  (def m (peg/match ~(sequence (any " ")
+                               (capture (position)))
                     target-line))
   #(spit "/tmp/janet-indent-matches.txt" (string/format "%p" m))
   (print (first m)))
