@@ -240,14 +240,8 @@
   (def input-lines
     (string/split "\n" fragment))
   (eprint "number of lines before: " (length input-lines))
-  # empty lines need special handling to protect from spork/fmt's eagerness
-  (let [last-line (array/pop input-lines)]
-    (array/push input-lines
-                (if (peg/match ~(sequence (any " ") -1)
-                               last-line)
-                  "__MY_FUN_SENTINEL__"
-                  last-line)))
-  (eprint "last-line: " (array/peek input-lines))
+  (array/pop input-lines)
+  (array/push input-lines "__MY_FUN_SENTINEL__")
   (def joined (string/join input-lines "\n"))
   (def closing-delims (missing-delims joined))
   (def formatted
